@@ -1,4 +1,3 @@
-//Test 1.0
 /**
  * @author mahipaul.tak, luke.renaud, kevin.widemann
  *
