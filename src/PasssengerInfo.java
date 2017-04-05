@@ -1,7 +1,7 @@
 
 /**
- * @author mahipaul.tak, luke.renaud, kevin.widdeman
- * 
+ * @author mahipaul.tak, luke.renaud, kevin.widemann
+ *
  * Class for keeping track of passenger info and is attached to a ticket
  * should contain all relevant passenger info as provided in documentation
  *
@@ -20,28 +20,28 @@ public class PasssengerInfo {
 	 * String representind date of birth of passenger
 	 * in Formtat: DD/MM/YYYY
 	 */
-	private String Bdate;
+	private String BDate;
 
 
 	/**
-	 * Constructor for passenger info object, bdate should be in the formate
+	 * Constructor for passenger info object, bdate should be in the format
 	 * DD/MM/YYYY
-	 * 
+	 *
 	 * @param fName
 	 * @param lName
-	 * @param bdate
+	 * @param bDate
 	 */
-	public PasssengerInfo(String fName, String lName, String bdate) {
+	public PasssengerInfo(String fName, String lName, String bDate) {
 		super();
 		FName = fName;
 		LName = lName;
-		Bdate = bdate;
+		BDate = bDate;
 	}
 
 	/**
 	 * Converts given ints into a date of the format
 	 *   DD/MM/YYYY
-	 * 
+	 *
 	 * @param d
 	 * @param m
 	 * @param y
@@ -56,17 +56,15 @@ public class PasssengerInfo {
 
 	}
 	
-	/* 
-	 * Outputs passenger info as 
-	 * "*FName* *LName* has a date of birth of *bdate*. "
-	 * 
+	/*
+	 * Outputs passenger info as
+	 * "*FName* *LName* has a date of birth of *BDate*. "
+	 *
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){
-		
-		
-		return (FName + LName  + "has a date of birth" + Bdate);
+		return (FName + LName  + "has a date of birth" + BDate);
 	}
 
 
