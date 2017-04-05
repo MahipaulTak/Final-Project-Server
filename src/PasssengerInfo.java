@@ -7,6 +7,7 @@
  *
  */
 public class PasssengerInfo {
+
 	/**
 	 * String representing first name of passenger
 	 */
@@ -20,4 +21,54 @@ public class PasssengerInfo {
 	 * in Formtat: DD/MM/YYYY
 	 */
 	private String Bdate;
+
+
+	/**
+	 * Constructor for passenger info object, bdate should be in the formate
+	 * DD/MM/YYYY
+	 * 
+	 * @param fName
+	 * @param lName
+	 * @param bdate
+	 */
+	public PasssengerInfo(String fName, String lName, String bdate) {
+		super();
+		FName = fName;
+		LName = lName;
+		Bdate = bdate;
+	}
+
+	/**
+	 * Converts given ints into a date of the format
+	 *   DD/MM/YYYY
+	 * 
+	 * @param d
+	 * @param m
+	 * @param y
+	 * @return
+	 */
+	public static String ItoBD(Integer d, Integer m, Integer y){
+		String dd = new String(Integer.toString(d));
+		String mm = new String(Integer.toString(m));
+		String yyyy = new String(Integer.toString(y));
+		
+		return (dd + "/" + mm + "/" + yyyy);
+
+	}
+	
+	/* 
+	 * Outputs passenger info as 
+	 * "*FName* *LName* has a date of birth of *bdate*. "
+	 * 
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString(){
+		
+		
+		return (FName + LName  + "has a date of birth" + Bdate);
+	}
+
+
+
 }
