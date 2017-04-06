@@ -30,6 +30,7 @@ public class dbDriver {
 	public dbDriver() throws SQLException{
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBASE","root","password");
 		stmt = conn.createStatement();
+		
 	}
 	
 	
