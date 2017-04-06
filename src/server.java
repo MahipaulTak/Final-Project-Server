@@ -64,7 +64,7 @@ public class server {
 	}
 
 	/**
-	 * 
+	 * Funciton for the operation of the server
 	 * 
 	 * @throws IOException
 	 * @throws ClassNotFoundException
@@ -72,17 +72,30 @@ public class server {
 	public void run() throws IOException, ClassNotFoundException{
 		while(true){
 			message = clientIn.readLine();
+			
+			
+			// Command all Flights
+			// sends all flights in catalog to client
+			
 			if(message == "allFlights"){
 				for(int i = 0; i < cat.getSize() ; i++){
 				ouut.writeObject(cat.getCatalogue().get(i));
 				}
 				ouut.writeObject(null);
 			}
+			
+			// Command bookFlight
+			// books Ticket sent to flight it should be attached to 
+			
 			else if(message == "bookFlight"){
 				Ticket t = (Ticket) iin.readObject();
 				cat.find(t.getFl()).Tickets.add(t);
 
 			}
+			
+			// Command allTickets
+			// sends all Tickets booked for flight # sent afterwards
+			
 			else if(message == "allTickets"){
 				Integer ff = Integer.parseInt(clientIn.readLine());
 				for(int i = 0; i < cat.find(ff).Tickets.size(); i++){
@@ -91,11 +104,22 @@ public class server {
 				ouut.writeObject(null);
 				
 			}
+			
+			// Command cancel
+			// Receives ticket form server and removes the booking from the
+			// connected flight
+			
 			else if(message == "cancel"){
-				
+				Ticket t = (Ticket) iin.readObject();
+				cat.find(t.getFl()).Tickets.remove(t);
 			}
+			
+			// Command addFlight
+			// Receives Flight object and adds it to catalog of flights
+			
 			else if(message == "addFlight"){
 				Flight f = (Flight) iin.readObject();
+				cat.addFlight(f);
 				
 			}
 
