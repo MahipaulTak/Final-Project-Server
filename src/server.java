@@ -74,14 +74,12 @@ public class server {
 			message = clientIn.readLine();
 			
 			
-			// Command all Flights
-			// sends all flights in catalog to client
+			// Command getFlight
+			// sends flight object with flight number gieven by client
 			
-			if(message == "allFlights"){
-				for(int i = 0; i < cat.getSize() ; i++){
-				ouut.writeObject(cat.getCatalogue().get(i));
-				}
-				ouut.writeObject(null);
+			if(message == "getFlight"){
+				Integer ff = Integer.parseInt(clientIn.readLine());
+				ouut.writeObject(cat.find(ff));
 			}
 			
 			// Command bookFlight
