@@ -27,7 +27,27 @@ public class FlightCatalogue {
 		this.catalogue = new ArrayList<Flight>();
 	}
 	
+	public Flight find(Flight f){
+		Flight result = null;
+		for(int i = 0; i < catalogue.size(); i++){
+			if(f.FlightNumber == catalogue.get(i).FlightNumber){
+				result = catalogue.get(i);
+				break;
+			}
+		}
+		return result;
+	}
 	
+	public Flight find(Integer f){
+		Flight result = null;
+		for(int i = 0; i < catalogue.size(); i++){
+			if(f == catalogue.get(i).FlightNumber){
+				result = catalogue.get(i);
+				break;
+			}
+		}
+		return result;
+	}
 	
 	/**
 	 * Adds k to the catalogue

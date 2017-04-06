@@ -76,11 +76,19 @@ public class server {
 				for(int i = 0; i < cat.getSize() ; i++){
 				ouut.writeObject(cat.getCatalogue().get(i));
 				}
+				ouut.writeObject(null);
 			}
 			else if(message == "bookFlight"){
+				Ticket t = (Ticket) iin.readObject();
+				cat.find(t.getFl()).Tickets.add(t);
 
 			}
 			else if(message == "allTickets"){
+				Integer ff = Integer.parseInt(clientIn.readLine());
+				for(int i = 0; i < cat.find(ff).Tickets.size(); i++){
+					ouut.writeObject(cat.find(ff).Tickets.get(i));
+				}
+				ouut.writeObject(null);
 				
 			}
 			else if(message == "cancel"){

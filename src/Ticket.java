@@ -15,6 +15,46 @@ public class Ticket implements Serializable{
 	
 
 
+	public Flight getFl() {
+		return fl;
+	}
+
+
+	public void setFl(Flight fl) {
+		this.fl = fl;
+	}
+
+
+	public Integer getID() {
+		return ID;
+	}
+
+
+	public void setID(Integer iD) {
+		ID = iD;
+	}
+
+
+	public PasssengerInfo getInfo() {
+		return info;
+	}
+
+
+	public void setInfo(PasssengerInfo info) {
+		this.info = info;
+	}
+
+
+	public Integer getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+
 	/**
 	 * ticket is for this flight
 	 */
