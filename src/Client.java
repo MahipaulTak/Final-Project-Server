@@ -8,4 +8,8 @@
  */
 public class Client {
 
+	public Client(String string, int i) {
+		// TODO Auto-generated constructor stub
+	}
+
 }
