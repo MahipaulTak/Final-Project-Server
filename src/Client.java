@@ -62,7 +62,7 @@ public void communicate()  {//This is just copy pasta, may need fixing
 
 public static void main(String[] args) throws IOException  {
 	Client aClient = new Client("localhost", 9898);
-	aClient.communicate();
+	//TODO Do something here
 }
 	
 	public void connect_to_server(){
@@ -78,6 +78,8 @@ public static void main(String[] args) throws IOException  {
 		socketOut.write(flightNumber);
 		
 		try {
+		socketOut.println("getFlight");
+		socketOut.println(flightNumber);
 		ObjectInputStream InputStream = new ObjectInputStream(inSocket.getInputStream());
 		Flight temp = (Flight) InputStream.readObject();
 		
