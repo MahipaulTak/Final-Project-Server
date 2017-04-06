@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  */
 
 //Probably need some libraries
-public class Flight {
+public class Flight implements Serializable{
 	public Integer FlightNumber, Duration, NumberOfSeats, RemainingSeats, Time;//Time is just an int of 24 hour time
 	double Price;
 	public String Source, Destination, Date;

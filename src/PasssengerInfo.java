@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * @author mahipaul.tak, luke.renaud, kevin.widemann
  *
@@ -5,7 +7,7 @@
  * should contain all relevant passenger info as provided in documentation
  *
  */
-public class PasssengerInfo {
+public class PasssengerInfo implements Serializable{
 
 	/**
 	 * String representing first name of passenger

@@ -1,3 +1,4 @@
+import java.io.Serializable;
 
 /**
  * Aggregated by flight objects and keeps track of passenger info of passenger with flight 
@@ -9,7 +10,7 @@
  *
  */
 
-public class Ticket {
+public class Ticket implements Serializable{
 	
 	
 

@@ -1,3 +1,4 @@
+import java.io.Serializable;
 
 /**
  * passenger G.U.I please refer to documentation for requirements 
@@ -7,7 +8,7 @@
  * 
  *
  */
-public class Passenger {
+public class Passenger implements Serializable{
 	//TODO - JPanel outer layer?
 	//TODO - other elements we may need access to in the gui
 	
