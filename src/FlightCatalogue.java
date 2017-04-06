@@ -14,6 +14,14 @@ public class FlightCatalogue {
 	private ArrayList<Flight> catalogue;
 
 
+	public ArrayList<Flight> getCatalogue() {
+		return catalogue;
+	}
+
+	public Integer getSize(){
+		return catalogue.size();
+	}
+
 	public FlightCatalogue() {
 
 		this.catalogue = new ArrayList<Flight>();
