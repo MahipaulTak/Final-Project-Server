@@ -31,13 +31,21 @@ public class server {
 	 */
 	PrintWriter serverOut;
 	/**
-	 * message
+	 * message received from client
 	 */
 	String message;
+	/**
+	 * output stream for serialized objects
+	 */
 	ObjectOutputStream ouut;
+	/**
+	 * input stream for serialized objects
+	 */
 	ObjectInputStream iin;
-	
-
+	/**
+	 * Catalog for flights
+	 */
+	FlightCatalogue cat;
 	/**
 	 * Constructor for server, connects to port 9898
 	 * 
@@ -51,14 +59,23 @@ public class server {
 		serverOut = new PrintWriter(Client.getOutputStream(), true);
 		iin = new ObjectInputStream(Client.getInputStream());
 		ouut = new ObjectOutputStream(Client.getOutputStream());
+		cat = new FlightCatalogue();
 		System.out.println("Server now connected to the client");
 	}
 
+	/**
+	 * 
+	 * 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void run() throws IOException, ClassNotFoundException{
 		while(true){
 			message = clientIn.readLine();
 			if(message == "allFlights"){
-				
+				for(int i = 0; i < cat.getSize() ; i++){
+				ouut.writeObject(cat.getCatalogue().get(i));
+				}
 			}
 			else if(message == "bookFlight"){
 
