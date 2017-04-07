@@ -58,8 +58,8 @@ public class server {
 		Client = serverSocket.accept();
 		clientIn = new BufferedReader(new InputStreamReader(Client.getInputStream()));
 		serverOut = new PrintWriter(Client.getOutputStream(), true);
-		iin = new ObjectInputStream(Client.getInputStream());
-		ouut = new ObjectOutputStream(Client.getOutputStream());
+//		iin = new ObjectInputStream(Client.getInputStream());
+//		ouut = new ObjectOutputStream(Client.getOutputStream());
 		cat = new FlightCatalogue();
 		System.out.println("Server now connected to the client");
 	}
@@ -88,7 +88,9 @@ public class server {
 
 			if(message == "getFlight"){
 				Integer ff = Integer.parseInt(clientIn.readLine());
+				ouut = new ObjectOutputStream(Client.getOutputStream());
 				ouut.writeObject(cat.find(ff));
+				ouut.close();
 
 				System.out.println("sent flight object");
 			}
@@ -98,7 +100,9 @@ public class server {
 			// returns a string for if the flight was booked or not
 
 			else if(message == "bookFlight"){
+				iin = new ObjectInputStream(Client.getInputStream());
 				Ticket t = (Ticket) iin.readObject();
+				iin.close();
 				String back = cat.find(t.getFl()).addTicket(t);
 				serverOut.println(back);
 				System.out.println("booked flight");
@@ -110,8 +114,10 @@ public class server {
 
 			else if(message == "allTickets"){
 				Integer ff = Integer.parseInt(clientIn.readLine());
+				ouut = new ObjectOutputStream(Client.getOutputStream());
 				ouut.writeObject(cat.find(ff).Tickets);
 				ouut.writeObject(null);
+				ouut.close();
 				System.out.println("sent the tickets");
 
 			}
@@ -121,7 +127,9 @@ public class server {
 			// connected flight, returns wether the ticket was actually removed 
 
 			else if(message == "cancel"){
+				iin = new ObjectInputStream(Client.getInputStream());
 				Ticket t = (Ticket) iin.readObject();
+				iin.close();
 				String back = cat.find(t.getFl()).removeTicket(t);
 				System.out.println("removed ticket");
 				//				serverOut.println(back);
@@ -132,7 +140,9 @@ public class server {
 			// returns flight number
 
 			else if(message == "addFlight"){
+				ouut = new ObjectOutputStream(Client.getOutputStream());
 				Flight f = (Flight) iin.readObject();
+				ouut.close();
 				Integer back = cat.addFlight(f);
 				serverOut.println(back.toString());
 				System.out.println("added flight");
