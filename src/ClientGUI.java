@@ -226,19 +226,19 @@ public class ClientGUI {
 
 	
 	protected void runSearch(){
-		flightList = client_connection.allFlights();
+		flightList = client_connection.searchFlights();
 		for(int i = 0; i < flightList.size();){
 			//Delete all flights not matching the current search criteria
-			if(flightList.get(i).getSource() != sourceText.getText() && !sourceText.getText().equals("")){
+			if(flightList.get(i).Source != sourceText.getText() && !sourceText.getText().equals("")){
 				flightList.remove(i);
 			}
-			else if(flightList.get(i).getDestination() != destinationText.getText() && !destinationText.getText().equals("")){
+			else if(flightList.get(i).Destination != destinationText.getText() && !destinationText.getText().equals("")){
 				flightList.remove(i);
 			}
-			else if(flightList.get(i).getDate() != dateText.getText() && !dateText.getText().equals("")){
+			else if(flightList.get(i).Date != dateText.getText() && !dateText.getText().equals("")){
 				flightList.remove(i);
 			}
-			else if(checkBox.isSelected() && flightList.get(i).isFull()){
+			else if(checkBox.isSelected() && (flightList.get(i).RemainingSeats != 0)){
 				flightList.remove(i);
 			}
 			else{
