@@ -13,12 +13,11 @@ public class FlightCatalogue {
 	 * Catalogue of all current flights, should be kept up to date with database
 	 */
 	private ArrayList<Flight> catalogue;
-	/**
-	 * class for executing commands to databse
-	 */
-//	private dbDriver dbdrive;
+
+	private Integer fnumb;
 
 	public ArrayList<Flight> getCatalogue() {
+		
 		return catalogue;
 	}
 
@@ -27,7 +26,7 @@ public class FlightCatalogue {
 	}
 
 	public FlightCatalogue() {
-
+		fnumb = 0;
 		this.catalogue = new ArrayList<Flight>();
 	}
 	
@@ -59,9 +58,12 @@ public class FlightCatalogue {
 	 * @param k
 	 * @throws SQLException 
 	 */
-	public void addFlight(Flight k) throws SQLException{
-		catalogue.add(k);
+	public Integer addFlight(Flight k) throws SQLException{
 		
+		k.FlightNumber = fnumb;
+		fnumb++;
+		catalogue.add(k);
+		return (fnumb -1);
 //		String sql = "INSERT INTO clientinfo " + "VALUES ("+ k.FlightNumber +", '"+ k.Duration+"', '"+k.NumberOfSeats+"', '"+k.RemainingSeats+"', '"+k.Time+"', '"+k.Price+"', '"+k.Source+"', '"+k.Destination+"', '"+k.Date+"')";                                 
 //		dbdrive.getStmt().execute(sql);
 	}
