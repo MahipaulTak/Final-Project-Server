@@ -64,13 +64,13 @@ public class server {
 		System.out.println("Server now connected to the client");
 	}
 
-	
+
 	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException{
 		server ser = new server();
 		ser.run();
 	}
-	
-	
+
+
 	/**
 	 * Funciton for the operation of the server
 	 * 
@@ -81,57 +81,61 @@ public class server {
 	public void run() throws IOException, ClassNotFoundException, SQLException{
 		while(true){
 			message = clientIn.readLine();
-			
-			
+
+
 			// Command getFlight
 			// sends flight object with flight number gieven by client
-			
+
 			if(message == "getFlight"){
 				Integer ff = Integer.parseInt(clientIn.readLine());
 				ouut.writeObject(cat.find(ff));
+
+				System.out.println("sent flight object");
 			}
-			
+
 			// Command bookFlight
 			// books Ticket sent to flight it should be attached to 
 			// returns a string for if the flight was booked or not
-			
+
 			else if(message == "bookFlight"){
 				Ticket t = (Ticket) iin.readObject();
 				String back = cat.find(t.getFl()).addTicket(t);
 				serverOut.println(back);
+				System.out.println("booked flight");
 
 			}
-			
+
 			// Command allTickets
 			// sends all Tickets booked for flight # sent afterwards sends a null
-			
+
 			else if(message == "allTickets"){
 				Integer ff = Integer.parseInt(clientIn.readLine());
-				
-					ouut.writeObject(cat.find(ff).Tickets);
-				
+				ouut.writeObject(cat.find(ff).Tickets);
 				ouut.writeObject(null);
-				
+				System.out.println("sent the tickets");
+
 			}
-			
+
 			// Command cancel
 			// Receives ticket form server and removes the booking from the
 			// connected flight, returns wether the ticket was actually removed 
-			
+
 			else if(message == "cancel"){
 				Ticket t = (Ticket) iin.readObject();
 				String back = cat.find(t.getFl()).removeTicket(t);
-//				serverOut.println(back);
+				System.out.println("removed ticket");
+				//				serverOut.println(back);
 			}
-			
+
 			// Command addFlight
 			// Receives Flight object and adds it to catalog of flights
 			// returns flight number
-			
+
 			else if(message == "addFlight"){
 				Flight f = (Flight) iin.readObject();
 				Integer back = cat.addFlight(f);
 				serverOut.println(back.toString());
+				System.out.println("added flight");
 			}
 
 		}
