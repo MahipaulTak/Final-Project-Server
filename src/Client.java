@@ -22,13 +22,11 @@ public class Client {
 private final String ticketDirectory = "./";
 private PrintWriter socketOut;
 private Socket inSocket;
-private BufferedReader stdIn;
 private BufferedReader BRsocket;
 
 public Client(String serverName, int portNumber) {
 	try {
 		inSocket = new Socket(serverName, portNumber);
-		stdIn = new BufferedReader(new InputStreamReader(System.in));
 		BRsocket = new BufferedReader(new InputStreamReader(
 				inSocket.getInputStream()));
 		socketOut = new PrintWriter((inSocket.getOutputStream()), true);
@@ -38,28 +36,6 @@ public Client(String serverName, int portNumber) {
 	}
 }
 
-public void communicate()  {//This is just copy pasta, may need fixing
-
-	String response = "";
-	boolean running = true;
-	while (running) {
-		try {
-			System.out.println("Fetching something?");
-				response = BRsocket.readLine();
-				System.out.println(response);	
-
-		} catch (IOException e) {
-			System.out.println("Sending error: " + e.getMessage());
-		}
-	}
-	try {
-		stdIn.close();
-		BRsocket.close();
-		socketOut.close();
-	} catch (IOException e) {
-		System.out.println("Closing error: " + e.getMessage());
-	}
-}
 	/**
 	 * 
 	 * @param flightNumber
@@ -72,12 +48,13 @@ public void communicate()  {//This is just copy pasta, may need fixing
 		ObjectInputStream InputStream = new ObjectInputStream(inSocket.getInputStream());
 		Flight temp = (Flight) InputStream.readObject();
 		
+		InputStream.close();
 		return temp;
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Class not found");
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.err.println("IO problems in get_flight");
 			e.printStackTrace();
 		}
 		return null;//if it can't return a normal flight/has problems
@@ -91,10 +68,12 @@ public void communicate()  {//This is just copy pasta, may need fixing
 			socketOut.println("addFlight");
 			ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
 			stream.writeObject(new_flight);
-		
+			stream.close();
 		} catch (IOException e) {
+			System.err.println("IO problems in add_flight");
 			e.printStackTrace();
 		}
+
 	}
 	/**
 	 * Display all flights to user
@@ -123,8 +102,9 @@ public void communicate()  {//This is just copy pasta, may need fixing
 			Ticket new_ticket = new Ticket(requestedFlight, requestedFlight.FlightNumber, info, requestedFlight.Price);
 			stream.writeObject(new_ticket);
 			rv = BRsocket.readLine();
-		
+			stream.close();
 		} catch (IOException e) {
+			System.err.println("IO problems in bookFlight");
 			e.printStackTrace();
 		}
 		
@@ -139,9 +119,11 @@ public void communicate()  {//This is just copy pasta, may need fixing
 			socketOut.println("cancel");
 			ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
 			stream.writeObject(new_ticket);
-		
+			stream.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.err.println("IO problems in cancelTicket");
+			
 		}
 	}
 	
@@ -153,8 +135,11 @@ public void communicate()  {//This is just copy pasta, may need fixing
 			rv = (ArrayList<Ticket>) InputStream.readObject();
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.err.println("IO problems in allTickets");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			System.err.println("Classnotfound in allTickets");
+
 		}
 		return rv;
 	}
