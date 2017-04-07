@@ -51,8 +51,9 @@ public class server {
 	 * Constructor for server, connects to port 9898
 	 * 
 	 * @throws IOException
+	 * @throws SQLException 
 	 */
-	public server() throws IOException{
+	public server() throws IOException, SQLException{
 		serverSocket = new ServerSocket(9898,1);
 		System.out.println("Flight Server is now running.");
 		Client = serverSocket.accept();
@@ -61,6 +62,8 @@ public class server {
 //		iin = new ObjectInputStream(Client.getInputStream());
 //		ouut = new ObjectOutputStream(Client.getOutputStream());
 		cat = new FlightCatalogue();
+		Flight nekw = new Flight(500,500,500.00,500,"calgary","edmonton","12/12/1212");
+		cat.addFlight(nekw);
 		System.out.println("Server now connected to the client");
 	}
 
