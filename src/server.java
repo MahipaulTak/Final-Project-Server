@@ -59,8 +59,8 @@ public class server {
 		Client = serverSocket.accept();
 		clientIn = new BufferedReader(new InputStreamReader(Client.getInputStream()));
 		serverOut = new PrintWriter(Client.getOutputStream(), true);
-//		iin = new ObjectInputStream(Client.getInputStream());
-//		ouut = new ObjectOutputStream(Client.getOutputStream());
+		//		iin = new ObjectInputStream(Client.getInputStream());
+		//		ouut = new ObjectOutputStream(Client.getOutputStream());
 		cat = new FlightCatalogue();
 		Flight nekw = new Flight(500,500,500.00,500,"calgary","edmonton","12/12/1212");
 		cat.addFlight(nekw);
@@ -92,14 +92,14 @@ public class server {
 			// sends flight object with flight number gieven by client
 
 			if(message.equalsIgnoreCase("getFlight")){
-				
+
 				Integer ff = Integer.parseInt(clientIn.readLine());
 				if(cat.find(ff) != null){
-				serverOut.println(cat.find(ff).Duration+"-"+cat.find(ff).NumberOfSeats+"-"+cat.find(ff).Price+"-"+cat.find(ff).Time+"-"+cat.find(ff).Source+"-"+cat.find(ff).Destination+"-"+cat.find(ff).Date);}
-				else{
-					serverOut.println("done");
-				}
-			
+					serverOut.println(cat.find(ff).Duration+"-"+cat.find(ff).NumberOfSeats+"-"+cat.find(ff).Price+"-"+cat.find(ff).Time+"-"+cat.find(ff).Source+"-"+cat.find(ff).Destination+"-"+cat.find(ff).Date);}
+				
+				serverOut.println("done");
+
+
 
 				System.out.println("sent flight object");
 			}
@@ -154,7 +154,7 @@ public class server {
 				String in = clientIn.readLine();
 				String[] nf = in.split("-");
 				Flight f = new Flight(Integer.parseInt(nf[0]), Integer.parseInt(nf[1]), Double.parseDouble(nf[2]), Integer.parseInt(nf[3]), nf[4], nf[5], nf[6]);
-				
+
 				Integer back = cat.addFlight(f);
 				serverOut.println(back.toString());
 				System.out.println("added flight");
