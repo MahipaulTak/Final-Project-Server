@@ -143,9 +143,10 @@ public class server {
 
 			else if(message.equalsIgnoreCase("addFlight")){
 				System.out.println("adding");
-				ouut = new ObjectOutputStream(Client.getOutputStream());
-				Flight f = (Flight) iin.readObject();
-				ouut.close();
+				String in = clientIn.readLine();
+				String[] nf = in.split("-");
+				Flight f = new Flight(Integer.parseInt(nf[0]), Integer.parseInt(nf[1]), Double.parseDouble(nf[2]), Integer.parseInt(nf[3]), nf[4], nf[5], nf[6]);
+				
 				Integer back = cat.addFlight(f);
 				serverOut.println(back.toString());
 				System.out.println("added flight");
