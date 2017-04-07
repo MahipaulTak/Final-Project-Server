@@ -97,7 +97,7 @@ public static void main(String[] args) throws IOException  {
 	/**
 	 * Display all flights to user
 	 */
-	public void searchFlights(){
+	public ArrayList<Flight> searchFlights(){
 		ArrayList<Flight> Flights = new ArrayList<Flight>();
 		int i = 0;
 		Flight temp = get_flight(i);
@@ -106,7 +106,8 @@ public static void main(String[] args) throws IOException  {
 			i++;
 			temp = get_flight(i);
 		}
-		//TODO update GUI
+		
+		return Flights;
 		
 	}
 	
