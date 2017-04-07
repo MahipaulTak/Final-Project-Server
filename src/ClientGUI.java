@@ -60,7 +60,7 @@ public class ClientGUI {
 	 * Create the application.
 	 */
 	public ClientGUI(String serverName, int portNumber, PasssengerInfo paInfo) {
-		//client_connection = new Client(serverName, portNumber);
+		client_connection = new Client(serverName, portNumber);
 		initialize();
 	}
 	
