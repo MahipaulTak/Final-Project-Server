@@ -144,6 +144,32 @@ public static void main(String[] args) throws IOException  {
 			return false;
 	}
 	
+	public void cancelTicket(Ticket new_ticket){
+		try {
+			socketOut.println("cancel");
+			ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
+			stream.writeObject(new_ticket);
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Ticket> allTickets(){
+		ArrayList<Ticket> rv = null;
+		try {
+			socketOut.println("allTickets");
+			ObjectInputStream InputStream = new ObjectInputStream(inSocket.getInputStream());
+			rv = (ArrayList<Ticket>) InputStream.readObject();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return rv;
+	}
+	
+	
 	public void printTicket(Ticket toPrint) throws FileNotFoundException, UnsupportedEncodingException{
 		PrintWriter output = new PrintWriter(ticketDirectory+"ticket", "UTF-8");
 		output.println(toPrint.toString());
