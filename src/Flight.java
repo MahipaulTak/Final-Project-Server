@@ -1,6 +1,9 @@
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
+import java.util.Calendar;
 /**
  * @author mahipaul.tak, luke.renaud, kevin.widmann
  *
@@ -84,7 +87,31 @@ public class Flight implements Serializable{
 		if(RemainingSeats == 0){
 			return "false";
 		}
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date current = new Date();
 		
+		char[] temp = new char[4];
+		temp[0] = Date.toCharArray()[6];
+		temp[1] = Date.toCharArray()[7];
+		temp[2] = Date.toCharArray()[8];
+		temp[3] = Date.toCharArray()[9];
+		Integer year = Integer.parseInt(new String(temp));
+		temp = new char[2];
+		temp[0] = Date.toCharArray()[0];
+		temp[1] = Date.toCharArray()[1];
+		Integer day = Integer.parseInt(new String(temp));
+		temp = new char[2];
+		temp[0] = Date.toCharArray()[3];
+		temp[1] = Date.toCharArray()[4];
+		Integer month = Integer.parseInt(new String(temp));
+		
+		if(Calendar.getInstance().YEAR < year){
+			if(Calendar.getInstance().MONTH < month){
+				if(Calendar.getInstance().DATE < day ){
+					return "false";
+				}
+			}
+		}
 		Tickets.add(t);
 		RemainingSeats--;
 		
