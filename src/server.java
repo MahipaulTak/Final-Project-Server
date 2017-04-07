@@ -86,6 +86,7 @@ public class server {
 			
 			// Command bookFlight
 			// books Ticket sent to flight it should be attached to 
+			// returns a string for if the flight was booked or not
 			
 			else if(message == "bookFlight"){
 				Ticket t = (Ticket) iin.readObject();
@@ -95,7 +96,7 @@ public class server {
 			}
 			
 			// Command allTickets
-			// sends all Tickets booked for flight # sent afterwards
+			// sends all Tickets booked for flight # sent afterwards sends a null
 			
 			else if(message == "allTickets"){
 				Integer ff = Integer.parseInt(clientIn.readLine());
@@ -108,7 +109,7 @@ public class server {
 			
 			// Command cancel
 			// Receives ticket form server and removes the booking from the
-			// connected flight
+			// connected flight, returns wether the ticket was actually removed 
 			
 			else if(message == "cancel"){
 				Ticket t = (Ticket) iin.readObject();
@@ -118,6 +119,7 @@ public class server {
 			
 			// Command addFlight
 			// Receives Flight object and adds it to catalog of flights
+			// returns flight number
 			
 			else if(message == "addFlight"){
 				Flight f = (Flight) iin.readObject();
