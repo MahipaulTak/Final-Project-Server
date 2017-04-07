@@ -107,9 +107,9 @@ public class server {
 			
 			else if(message == "allTickets"){
 				Integer ff = Integer.parseInt(clientIn.readLine());
-				for(int i = 0; i < cat.find(ff).Tickets.size(); i++){
-					ouut.writeObject(cat.find(ff).Tickets.get(i));
-				}
+				
+					ouut.writeObject(cat.find(ff).Tickets);
+				
 				ouut.writeObject(null);
 				
 			}
