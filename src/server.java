@@ -121,7 +121,7 @@ public class server {
 			else if(message == "cancel"){
 				Ticket t = (Ticket) iin.readObject();
 				String back = cat.find(t.getFl()).removeTicket(t);
-				serverOut.println(back);
+//				serverOut.println(back);
 			}
 			
 			// Command addFlight
