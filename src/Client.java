@@ -113,20 +113,17 @@ public static void main(String[] args) throws IOException  {
 	
 	public boolean bookFlight(Flight requestedFlight){
 		socketOut.write(requestedFlight.FlightNumber);
-		Integer iD, price;
-		iD = price = 0;
 		PasssengerInfo info = null;//need to generate new ticket ID for flight somehow
 		String rv = null;
 		try {
 			socketOut.println("bookFlight");
 			ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
-			//GUI TO GET INFO
-			Ticket new_ticket = new Ticket(requestedFlight, iD, info, price);
+			//TODO GUI TO GET INFO
+			Ticket new_ticket = new Ticket(requestedFlight, requestedFlight.FlightNumber, info, requestedFlight.Price);
 			stream.writeObject(new_ticket);
 			rv = BRsocket.readLine();
 		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
