@@ -108,7 +108,7 @@ public Client(String serverName, int portNumber) {
 			e.printStackTrace();
 		}
 		
-		if(rv == "true")
+		if(rv.equalsIgnoreCase("true"))
 			return true;
 		else
 			return false;
