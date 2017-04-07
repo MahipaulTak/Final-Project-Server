@@ -93,7 +93,11 @@ public class server {
 			if(message.equalsIgnoreCase("getFlight")){
 				
 				Integer ff = Integer.parseInt(clientIn.readLine());
-				serverOut.println(cat.find(ff).Duration+"-"+cat.find(ff).NumberOfSeats+"-"+cat.find(ff).Price+"-"+cat.find(ff).Time+"-"+cat.find(ff).Source+"-"+cat.find(ff).Destination+"-"+cat.find(ff).Date);
+				if(cat.find(ff) != null){
+				serverOut.println(cat.find(ff).Duration+"-"+cat.find(ff).NumberOfSeats+"-"+cat.find(ff).Price+"-"+cat.find(ff).Time+"-"+cat.find(ff).Source+"-"+cat.find(ff).Destination+"-"+cat.find(ff).Date);}
+				else{
+					serverOut.println(new String());
+				}
 			
 
 				System.out.println("sent flight object");
