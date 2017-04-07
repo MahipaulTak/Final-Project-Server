@@ -12,7 +12,10 @@ public class FlightCatalogue {
 	 * Catalogue of all current flights, should be kept up to date with database
 	 */
 	private ArrayList<Flight> catalogue;
-
+	/**
+	 * class for executing commands to databse
+	 */
+	private dbDriver dbdrive;
 
 	public ArrayList<Flight> getCatalogue() {
 		return catalogue;
@@ -56,6 +59,9 @@ public class FlightCatalogue {
 	 */
 	public void addFlight(Flight k){
 		catalogue.add(k);
+		
+		String sql = "INSERT INTO clientinfo " + "VALUES ("+ k.FlightNumber +", '"+ k.Duration+"', '"+k.NumberOfSeats+"', '"+k.RemainingSeats+"', '"+k.Time+"', '"+k.Price+"', '"+k.Source+"', '"+k.Source+"')";
+		
 	}
 
 

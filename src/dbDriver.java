@@ -13,6 +13,21 @@ import java.sql.*;
 public class dbDriver {
 	
 	
+	public Connection getConn() {
+		return conn;
+	}
+
+
+	public Statement getStmt() {
+		return stmt;
+	}
+
+
+	public ResultSet getRs() {
+		return rs;
+	}
+
+
 	/**
 	 * Connection to SQL server
 	 */
@@ -27,11 +42,19 @@ public class dbDriver {
 	private ResultSet rs;
 	
 	
+	/**
+	 * Constructor for making initial connection to database
+	 * 
+	 * @throws SQLException
+	 */
 	public dbDriver() throws SQLException{
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBASE","root","password");
-		stmt = conn.createStatement();
+//		stmt = conn.createStatement();
 		
 	}
+	
+	
+	
 	
 	
 }
