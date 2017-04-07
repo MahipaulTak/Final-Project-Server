@@ -64,15 +64,16 @@ public Client(String serverName, int portNumber) {
 	
 	public void add_flight(Integer duration, Integer numberOfSeats, Double price, Integer time, String source, String destination, String date){
 		Flight new_flight = new Flight(duration, numberOfSeats, price, time, source, destination, date);
-		try {
+		//try {
 			socketOut.println("addFlight");
-			ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
-			stream.writeObject(new_flight);
-			stream.close();
-		} catch (IOException e) {
-			System.err.println("IO problems in add_flight");
-			e.printStackTrace();
-		}
+			socketOut.println(duration+"-"+numberOfSeats+"-"+price+"-"+time+"-"+source+"-"+destination+"-"+date);
+			//ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
+			//stream.writeObject(new_flight);
+			//stream.close();
+		//} catch (IOException e) {
+			//System.err.println("IO problems in add_flight");
+			//e.printStackTrace();
+		//}
 
 	}
 	/**
