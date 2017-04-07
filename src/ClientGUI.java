@@ -69,7 +69,7 @@ public class ClientGUI {
 	 */
 	protected void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 461, 308);
+		frame.setBounds(100, 100, 300, 200);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		
@@ -84,6 +84,10 @@ public class ClientGUI {
 		
 		JLabel lblSearchByFlight = new JLabel("Search By Flight Criteria: ");
 		panel_1.add(lblSearchByFlight);
+		
+		JLabel header = new JLabel("TicketBooker");
+		listPane.add(header, BorderLayout.NORTH);
+
 		
 		//button to switch to the criteria window
 		JButton btnSearch = new JButton("Search");
