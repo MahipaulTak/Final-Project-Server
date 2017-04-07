@@ -64,13 +64,14 @@ public class server {
 		cat = new FlightCatalogue();
 		Flight nekw = new Flight(500,500,500.00,500,"calgary","edmonton","12/12/1212");
 		cat.addFlight(nekw);
+		cat.find(nekw).addTicket(new Ticket(nekw, 0, new PasssengerInfo("lol", "lol","1/1/0200"),30.00));
 		System.out.println("Server now connected to the client");
 	}
 
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException{
 		server ser = new server();
-		System.out.println("haha");
+		//System.out.println("haha");
 		ser.run();
 	}
 
