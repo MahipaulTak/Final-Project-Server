@@ -89,7 +89,8 @@ public class server {
 			
 			else if(message == "bookFlight"){
 				Ticket t = (Ticket) iin.readObject();
-				cat.find(t.getFl()).Tickets.add(t);
+				String back = cat.find(t.getFl()).addTicket(t);
+				serverOut.println(back);
 
 			}
 			
@@ -111,7 +112,8 @@ public class server {
 			
 			else if(message == "cancel"){
 				Ticket t = (Ticket) iin.readObject();
-				cat.find(t.getFl()).Tickets.remove(t);
+				String back = cat.find(t.getFl()).removeTicket(t);
+				serverOut.println(back);
 			}
 			
 			// Command addFlight
@@ -119,8 +121,8 @@ public class server {
 			
 			else if(message == "addFlight"){
 				Flight f = (Flight) iin.readObject();
-				cat.addFlight(f);
-				
+				Integer back = cat.addFlight(f);
+				serverOut.println(back.toString());
 			}
 
 		}

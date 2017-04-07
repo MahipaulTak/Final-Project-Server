@@ -121,6 +121,46 @@ public class Flight implements Serializable{
 		return Integer.toString(FlightNumber) + "-" + Integer.toString(Duration) + "-" + Integer.toString(NumberOfSeats) + "-" + Integer.toString(FlightNumber) + "-" + Integer.toString(Time)+ 
 				"-" + Double.toString(Price)  + "-" + Source  + "-" + Destination  + "-" + Date;
 	}
+	
+	
+	/**
+	 * Function for adding a booking to a flight
+	 * 
+	 * @param t
+	 * @return
+	 */
+	public String addTicket(Ticket t){
+		
+		
+		if(RemainingSeats == 0){
+			return "false";
+		}
+		
+		Tickets.add(t);
+		RemainingSeats--;
+		
+		return "true";
+	}
+	
+	/**
+	 * 
+	 * removes ticket from list of bookings
+	 * @param t
+	 * @return
+	 */
+	public String removeTicket(Ticket t){
+		boolean result = Tickets.remove(t);
+		
+		if(result){
+			RemainingSeats++;
+			return "true";
+			
+		}
+		else
+			return"false";
+	}
+	
+	
 
 }
 
