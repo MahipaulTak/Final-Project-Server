@@ -45,12 +45,12 @@ public class Ticket implements Serializable{
 	}
 
 
-	public Integer getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
 
-	public void setPrice(Integer price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
@@ -73,7 +73,7 @@ public class Ticket implements Serializable{
 	/**
 	 * price of flight including 7% tax
 	 */
-	private Integer price;
+	private Double price;
 	
 	
 	/**
@@ -84,7 +84,7 @@ public class Ticket implements Serializable{
 	 * @param info
 	 * @param price
 	 */
-	public Ticket(Flight fl, Integer iD, PasssengerInfo info, Integer price) {
+	public Ticket(Flight fl, Integer iD, PasssengerInfo info, Double price) {
 		super();
 		this.fl = fl;
 		ID = iD;
