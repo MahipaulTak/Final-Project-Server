@@ -97,7 +97,7 @@ public class server {
 				if(cat.find(ff) != null){
 				serverOut.println(cat.find(ff).Duration+"-"+cat.find(ff).NumberOfSeats+"-"+cat.find(ff).Price+"-"+cat.find(ff).Time+"-"+cat.find(ff).Source+"-"+cat.find(ff).Destination+"-"+cat.find(ff).Date);}
 				else{
-					serverOut.println(new String());
+					serverOut.println("done");
 				}
 			
 
