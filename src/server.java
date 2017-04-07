@@ -104,9 +104,10 @@ public class server {
 			// returns a string for if the flight was booked or not
 
 			else if(message.equalsIgnoreCase("bookFlight")){
-				iin = new ObjectInputStream(Client.getInputStream());
-				Ticket t = (Ticket) iin.readObject();
-				iin.close();
+				String in = clientIn.readLine();
+				String[] nf = in.split("-");
+				Flight temp = cat.find(Integer.parseInt(nf[0]));
+				Ticket t = new Ticket(temp,temp.tick, new PasssengerInfo(nf[1],nf[2],nf[3]),Double.parseDouble(nf[4]));
 				String back = cat.find(t.getFl()).addTicket(t);
 				serverOut.println(back);
 				System.out.println("booked flight");

@@ -18,6 +18,7 @@ public class Flight implements Serializable{
 	double Price;
 	public String Source, Destination, Date;
 	public ArrayList<Ticket> Tickets;//Check Luke's code on this
+	public Integer tick;
 
 
 	public Flight(Integer duration, Integer numberOfSeats, Double price, Integer time, String source, String destination, String date){
@@ -31,6 +32,7 @@ public class Flight implements Serializable{
 		Date = date;
 		ArrayList<Ticket> Tickets = new ArrayList<Ticket>();
 		Integer FlightNumber = -1;
+		tick = 0;
 	}
 
 //May not need? but leave around for when it goes into client
