@@ -67,6 +67,7 @@ public class server {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException{
 		server ser = new server();
+		System.out.println("haha");
 		ser.run();
 	}
 
@@ -87,6 +88,7 @@ public class server {
 			// sends flight object with flight number gieven by client
 
 			if(message == "getFlight"){
+				
 				Integer ff = Integer.parseInt(clientIn.readLine());
 				ouut = new ObjectOutputStream(Client.getOutputStream());
 				ouut.writeObject(cat.find(ff));
@@ -140,6 +142,7 @@ public class server {
 			// returns flight number
 
 			else if(message == "addFlight"){
+				System.out.println("adding");
 				ouut = new ObjectOutputStream(Client.getOutputStream());
 				Flight f = (Flight) iin.readObject();
 				ouut.close();
