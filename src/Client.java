@@ -49,8 +49,8 @@ public Client(String serverName, int portNumber) {
 		//Flight temp = (Flight) InputStream.readObject();
 		
 		String in = BRsocket.readLine();
-		if(in.equalsIgnoreCase(""))
-			return null;
+		if(in.equals("done"))
+			return null;	
 		
 		String[] nf = in.split("-");
 		Flight f = new Flight(Integer.parseInt(nf[0]), Integer.parseInt(nf[1]), Double.parseDouble(nf[2]), Integer.parseInt(nf[3]), nf[4], nf[5], nf[6]);
@@ -89,7 +89,7 @@ public Client(String serverName, int portNumber) {
 		ArrayList<Flight> Flights = new ArrayList<Flight>();
 		int i = 0;
 		Flight temp = get_flight(i);
-		while(temp!=null){
+		while(temp != null){
 			Flights.add(temp);
 			i++;
 			temp = get_flight(i);
