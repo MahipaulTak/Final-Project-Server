@@ -76,6 +76,10 @@ public class AdminGUI {
 		JPanel panel_1 = new JPanel();
 		listPane.add(panel_1, BorderLayout.SOUTH);
 		
+		JLabel header = new JLabel("TicketBooker -- ADMINISTRATOR");
+		listPane.add(header, BorderLayout.NORTH);
+
+		
 		//button to browse tickets
 		JButton btnTickets = new JButton("Browse Tickets");
 		btnTickets.addActionListener(new ActionListener(){
