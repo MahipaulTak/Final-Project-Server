@@ -253,7 +253,7 @@ public class ClientGUI {
 		//Clear and then update the list
 		((DefaultListModel<String>) list.getModel()).clear();
 		for(int i = 0; i < flightList.size(); i++){
-			((DefaultListModel<String>) list.getModel()).addElement(flightList.get(i).getID());
+			((DefaultListModel<String>) list.getModel()).addElement(Integer.toString((flightList.get(i).FlightNumber)));
 		}
 	}
 	

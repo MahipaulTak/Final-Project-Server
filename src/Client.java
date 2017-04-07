@@ -94,6 +94,18 @@ public static void main(String[] args) throws IOException  {
 
 	}
 	
+	
+	public void add_flight(Integer duration, Integer numberOfSeats, Double price, Integer time, String source, String destination, String date){
+		Flight new_flight = new Flight(duration, numberOfSeats, price, time, source, destination, date);
+		try {
+			socketOut.println("addFlight");
+			ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
+			stream.writeObject(new_flight);
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Display all flights to user
 	 */
@@ -112,7 +124,6 @@ public static void main(String[] args) throws IOException  {
 	}
 	
 	public boolean bookFlight(Flight requestedFlight){
-		socketOut.write(requestedFlight.FlightNumber);
 		PasssengerInfo info = null;//need to generate new ticket ID for flight somehow
 		String rv = null;
 		try {
