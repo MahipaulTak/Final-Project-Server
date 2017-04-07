@@ -97,16 +97,17 @@ public Client(String serverName, int portNumber) {
 	}
 	
 	public boolean bookFlight(Flight requestedFlight){
-		PasssengerInfo info = null;
+		PasssengerInfo info = new PasssengerInfo("First", "Last", "BDay");
 		String rv = null;
 		try {
 			socketOut.println("bookFlight");
-			ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
+			//ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
+			socketOut.println(requestedFlight.FlightNumber+"-"+info.getFName()+"-"+info.getLName()+"-"+info.getBDate()+"-"+requestedFlight.Price);
 			//TODO GUI TO GET INFO
-			Ticket new_ticket = new Ticket(requestedFlight, requestedFlight.FlightNumber, info, requestedFlight.Price);
-			stream.writeObject(new_ticket);
+			//Ticket new_ticket = new Ticket(requestedFlight, requestedFlight.FlightNumber, info, requestedFlight.Price);
+			//stream.writeObject(new_ticket);
 			rv = BRsocket.readLine();
-			stream.close();
+			//stream.close();
 		} catch (IOException e) {
 			System.err.println("IO problems in bookFlight");
 			e.printStackTrace();

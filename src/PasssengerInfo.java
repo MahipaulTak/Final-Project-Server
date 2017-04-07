@@ -39,6 +39,18 @@ public class PasssengerInfo implements Serializable{
 		BDate = bDate;
 	}
 
+	public String getFName() {
+		return FName;
+	}
+
+	public String getLName() {
+		return LName;
+	}
+
+	public String getBDate() {
+		return BDate;
+	}
+
 	/**
 	 * Converts given ints into a date of the format
 	 *   DD/MM/YYYY
