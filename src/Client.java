@@ -45,14 +45,17 @@ public Client(String serverName, int portNumber) {
 		try {
 		socketOut.println("getFlight");
 		socketOut.println(flightNumber);
-		ObjectInputStream InputStream = new ObjectInputStream(inSocket.getInputStream());
-		Flight temp = (Flight) InputStream.readObject();
+		//ObjectInputStream InputStream = new ObjectInputStream(inSocket.getInputStream());
+		//Flight temp = (Flight) InputStream.readObject();
 		
-		InputStream.close();
-		return temp;
-		} catch (ClassNotFoundException e) {
-			System.err.println("Class not found");
-			e.printStackTrace();
+		String in = BRsocket.readLine();
+		String[] nf = in.split("-");
+		Flight f = new Flight(Integer.parseInt(nf[0]), Integer.parseInt(nf[1]), Double.parseDouble(nf[2]), Integer.parseInt(nf[3]), nf[4], nf[5], nf[6]);
+		//InputStream.close();
+		return f;
+		//} catch (ClassNotFoundException e) {
+		//	System.err.println("Class not found");
+		//	e.printStackTrace();
 		} catch (IOException e) {
 			System.err.println("IO problems in get_flight");
 			e.printStackTrace();
