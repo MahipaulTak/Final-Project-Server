@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -271,8 +272,7 @@ public class AdminGUI {
 	
 		
 	protected void addSingleFlight(){
-		Flight newFlight = new Flight(Integer.parseInt(durationText.getText()), Integer.parseInt(seatsText.getText()), Double.parseDouble(priceText.getText()), Integer.parseInt(timeText.getText()), sourceText.getText(), destinationText.getText(), dateText.getText());
-		client_connection.addFlight(newFlight);
+		client_connection.add_flight(Integer.parseInt(durationText.getText()), Integer.parseInt(seatsText.getText()), Double.parseDouble(priceText.getText()), Integer.parseInt(timeText.getText()), sourceText.getText(), destinationText.getText(), dateText.getText());
 	}
 	
 	protected void loadTickets(){
@@ -305,13 +305,19 @@ public class AdminGUI {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		
+		try {
 		while(input.ready()){
-			String line = input.readLine().trim();
+			String line;
+			line = input.readLine().trim();
 			String[] contents = line.split(" ");
 			
-			Flight toAdd = new Flight(contents[0], Integer.parseInt(contents[1]), Double.parseDouble(contents[2]), Integer.parseInt(contents[3]), contents[4], contents[5], contents[6]);
-			client_connection.addFlight(toAdd);
+			client_connection.add_flight(Integer.parseInt(contents[0]), Integer.parseInt(contents[1]), Double.parseDouble(contents[2]), Integer.parseInt(contents[3]), contents[4], contents[5], contents[6]);
+			
+		}
+		
+		} catch (IOException e) {
+			System.err.println("Input Error or something. AKA it broke");
+			e.printStackTrace();
 		}
 	}
 }
