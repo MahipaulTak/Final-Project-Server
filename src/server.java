@@ -90,9 +90,8 @@ public class server {
 			if(message.equalsIgnoreCase("getFlight")){
 				
 				Integer ff = Integer.parseInt(clientIn.readLine());
-				ouut = new ObjectOutputStream(Client.getOutputStream());
-				ouut.writeObject(cat.find(ff));
-				ouut.close();
+				serverOut.println(cat.find(ff).Duration+"-"+cat.find(ff).NumberOfSeats+"-"+cat.find(ff).Price+"-"+cat.find(ff).Time+"-"+cat.find(ff).Source+"-"+cat.find(ff).Destination+"-"+cat.find(ff).Date);
+			
 
 				System.out.println("sent flight object");
 			}
