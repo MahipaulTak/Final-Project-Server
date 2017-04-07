@@ -60,16 +60,6 @@ public void communicate()  {//This is just copy pasta, may need fixing
 		System.out.println("Closing error: " + e.getMessage());
 	}
 }
-
-public static void main(String[] args) throws IOException  {
-	Client aClient = new Client("localhost", 9898);
-	//TODO Do something here
-}
-	
-	public void connect_to_server(){
-		//TODO - connect to a chosen port shared with the server		
-	}
-	
 	/**
 	 * 
 	 * @param flightNumber
@@ -124,7 +114,7 @@ public static void main(String[] args) throws IOException  {
 	}
 	
 	public boolean bookFlight(Flight requestedFlight){
-		PasssengerInfo info = null;//need to generate new ticket ID for flight somehow
+		PasssengerInfo info = null;
 		String rv = null;
 		try {
 			socketOut.println("bookFlight");
