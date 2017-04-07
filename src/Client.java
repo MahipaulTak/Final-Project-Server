@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
@@ -22,13 +23,13 @@ private final String ticketDirectory = "./";
 private PrintWriter socketOut;
 private Socket inSocket;
 private BufferedReader stdIn;
-private BufferedReader socketIn;
+private BufferedReader BRsocket;
 
 public Client(String serverName, int portNumber) {
 	try {
 		inSocket = new Socket(serverName, portNumber);
 		stdIn = new BufferedReader(new InputStreamReader(System.in));
-		socketIn = new BufferedReader(new InputStreamReader(
+		BRsocket = new BufferedReader(new InputStreamReader(
 				inSocket.getInputStream()));
 		socketOut = new PrintWriter((inSocket.getOutputStream()), true);
 	} catch (IOException e) {
@@ -44,7 +45,7 @@ public void communicate()  {//This is just copy pasta, may need fixing
 	while (running) {
 		try {
 			System.out.println("Fetching something?");
-				response = socketIn.readLine();
+				response = BRsocket.readLine();
 				System.out.println(response);	
 
 		} catch (IOException e) {
@@ -53,7 +54,7 @@ public void communicate()  {//This is just copy pasta, may need fixing
 	}
 	try {
 		stdIn.close();
-		socketIn.close();
+		BRsocket.close();
 		socketOut.close();
 	} catch (IOException e) {
 		System.out.println("Closing error: " + e.getMessage());
@@ -75,8 +76,6 @@ public static void main(String[] args) throws IOException  {
 	 * @return Flight
 	 */
 	public Flight get_flight(Integer flightNumber){
-		socketOut.write(flightNumber);
-		
 		try {
 		socketOut.println("getFlight");
 		socketOut.println(flightNumber);
@@ -112,8 +111,28 @@ public static void main(String[] args) throws IOException  {
 	}
 	
 	public boolean bookFlight(Flight requestedFlight){
-		//TODO - check if a ticket can be purchased, then alert the server that it has been purchased
-		return true;
+		socketOut.write(requestedFlight.FlightNumber);
+		Integer iD, price;
+		iD = price = 0;
+		PasssengerInfo info = null;//need to generate new ticket ID for flight somehow
+		String rv = null;
+		try {
+			socketOut.println("bookFlight");
+			ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
+			//GUI TO GET INFO
+			Ticket new_ticket = new Ticket(requestedFlight, iD, info, price);
+			stream.writeObject(new_ticket);
+			rv = BRsocket.readLine();
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(rv == "true")
+			return true;
+		else
+			return false;
 	}
 	
 	public void printTicket(Ticket toPrint) throws FileNotFoundException, UnsupportedEncodingException{
