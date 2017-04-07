@@ -17,16 +17,7 @@ public class Flight implements Serializable{
 	public ArrayList<Ticket> Tickets;//Check Luke's code on this
 
 
-	public Flight(){//default constructor
-		Source = null;
-		Destination =null;
-		Date = null;
-		Time = null;
-		//something something about initializing
-	}
-
-	public Integer addFlight(Integer duration, Integer numberOfSeats, Integer price, Integer time, String source, String destination, String date){
-
+	public Flight(Integer duration, Integer numberOfSeats, Double price, Integer time, String source, String destination, String date){
 		RemainingSeats = 0;
 		Duration = duration;
 		NumberOfSeats =  numberOfSeats;
@@ -35,54 +26,12 @@ public class Flight implements Serializable{
 		Source = source;
 		Destination = destination;
 		Date = date;
-
-		//add flight to list of flights if there is one
-		//FlightList.add(this);
-
-		//set flight number to next available number:
-		//flightNumber = getNextFlightNumber();
-		return FlightNumber;
-
+		ArrayList<Ticket> Tickets = new ArrayList<Ticket>();
+		Integer FlightNumber = -1;
 	}
 
-
-	/**
-	 * @param duration
-	 * @param numberOfSeats
-	 * @param price
-	 * @param time
-	 * @param source
-	 * @param destination
-	 * @param date
-	 * @return rv
-	 * 
-	 * calls addFlight multiple times, needs to be passed in an array of flight information though, best way I can think of to add multiple flights
-	 * this function might be best in FlightCatalogue instead of flight
-	 */
-	public Integer[] addMultipleFlights(Integer[] duration, Integer[] numberOfSeats, Double[] price, Integer[] time, String[] source, String[] destination, String[] date){
-		Integer[] rv = new Integer[duration.length];
-		for(int i = 0; i<duration.length; i++){
-			Flight temp = new Flight();
-			rv[i] = temp.addFlight(duration[i], numberOfSeats[i], price[i], time[i], source[i], destination[i], date[i]);
-			//FlightList.add(temp);
-
-		}
-		//fill list with x new tickets?
-		//for(int i = 0; i<numberOfSeats; i++){
-		//	Ticket temp = new Ticket(this, generateNewTicketID(), PasssengerInfo(), price); //Passenger Info needs default constructor
-		//	Tickets.set(i, temp);
-		//}
-
-		//add flight to list of flights if there is one
-		//FlightList.add(this);
-
-		//set flight number to next available number:
-		//FlightNumber = getNextFlightNumber();
-		return rv;
-
-	}
-
-	public Integer addFlight(Integer duration, Integer numberOfSeats, Double price, Integer time, String source, String destination, String date){
+//May not need? but leave around for when it goes into client
+/*	public Integer addFlight(Integer duration, Integer numberOfSeats, Double price, Integer time, String source, String destination, String date){
 		RemainingSeats = 0;
 		Duration = duration;
 		NumberOfSeats =  numberOfSeats;
@@ -93,10 +42,10 @@ public class Flight implements Serializable{
 		Date = date;
 		Tickets = new ArrayList<Ticket>(numberOfSeats);
 		//fill list with x new tickets?
-		//for(int i = 0; i<numberOfSeats; i++){
-		//	Ticket temp = new Ticket(this, generateNewTicketID(), PasssengerInfo(), price); //Passenger Info needs default constructor
-		//	Tickets.set(i, temp);
-		//}
+		for(int i = 0; i<numberOfSeats; i++){
+			Ticket temp = new Ticket(this, generateNewTicketID(), , price); //Passenger Info needs default constructor
+			Tickets.set(i, temp);
+		}
 
 		//add flight to list of flights if there is one
 		//FlightList.add(this);
@@ -105,7 +54,7 @@ public class Flight implements Serializable{
 		//FlightNumber = getNextFlightNumber();
 		return FlightNumber;
 
-	}
+	}*/
 
 	public void editInfo(){
 		//call GUI to update info? Or maybe just remove this 
