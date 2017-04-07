@@ -64,6 +64,13 @@ public class server {
 		System.out.println("Server now connected to the client");
 	}
 
+	
+	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException{
+		server ser = new server();
+		ser.run();
+	}
+	
+	
 	/**
 	 * Funciton for the operation of the server
 	 * 
