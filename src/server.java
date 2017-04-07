@@ -87,7 +87,7 @@ public class server {
 			// Command getFlight
 			// sends flight object with flight number gieven by client
 
-			if(message == "getFlight"){
+			if(message.equalsIgnoreCase("getFlight")){
 				
 				Integer ff = Integer.parseInt(clientIn.readLine());
 				ouut = new ObjectOutputStream(Client.getOutputStream());
@@ -101,7 +101,7 @@ public class server {
 			// books Ticket sent to flight it should be attached to 
 			// returns a string for if the flight was booked or not
 
-			else if(message == "bookFlight"){
+			else if(message.equalsIgnoreCase("bookFlight")){
 				iin = new ObjectInputStream(Client.getInputStream());
 				Ticket t = (Ticket) iin.readObject();
 				iin.close();
@@ -114,7 +114,7 @@ public class server {
 			// Command allTickets
 			// sends all Tickets booked for flight # sent afterwards sends a null
 
-			else if(message == "allTickets"){
+			else if(message.equalsIgnoreCase("allTickets")){
 				Integer ff = Integer.parseInt(clientIn.readLine());
 				ouut = new ObjectOutputStream(Client.getOutputStream());
 				ouut.writeObject(cat.find(ff).Tickets);
@@ -128,7 +128,7 @@ public class server {
 			// Receives ticket form server and removes the booking from the
 			// connected flight, returns wether the ticket was actually removed 
 
-			else if(message == "cancel"){
+			else if(message.equalsIgnoreCase("cancel")){
 				iin = new ObjectInputStream(Client.getInputStream());
 				Ticket t = (Ticket) iin.readObject();
 				iin.close();
@@ -141,7 +141,7 @@ public class server {
 			// Receives Flight object and adds it to catalog of flights
 			// returns flight number
 
-			else if(message == "addFlight"){
+			else if(message.equalsIgnoreCase("addFlight")){
 				System.out.println("adding");
 				ouut = new ObjectOutputStream(Client.getOutputStream());
 				Flight f = (Flight) iin.readObject();
