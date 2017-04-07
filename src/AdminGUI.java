@@ -54,7 +54,7 @@ public class AdminGUI {
 	 * Create the application.
 	 */
 	public AdminGUI(String serverName, int portNumber, PasssengerInfo paInfo) {
-		//client_connection = new Client(serverName, portNumber);
+		client_connection = new Client(serverName, portNumber);
 		initialize();
 	}
 	
