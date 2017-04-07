@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 
 /**
  * @author mahipaul.tak, luke.renaud, kevin.widdeman
@@ -68,8 +69,9 @@ public class server {
 	 * 
 	 * @throws IOException
 	 * @throws ClassNotFoundException
+	 * @throws SQLException 
 	 */
-	public void run() throws IOException, ClassNotFoundException{
+	public void run() throws IOException, ClassNotFoundException, SQLException{
 		while(true){
 			message = clientIn.readLine();
 			

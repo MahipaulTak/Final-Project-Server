@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +16,7 @@ public class FlightCatalogue {
 	/**
 	 * class for executing commands to databse
 	 */
-	private dbDriver dbdrive;
+//	private dbDriver dbdrive;
 
 	public ArrayList<Flight> getCatalogue() {
 		return catalogue;
@@ -56,12 +57,13 @@ public class FlightCatalogue {
 	 * Adds k to the catalogue
 	 * 
 	 * @param k
+	 * @throws SQLException 
 	 */
-	public void addFlight(Flight k){
+	public void addFlight(Flight k) throws SQLException{
 		catalogue.add(k);
 		
-		String sql = "INSERT INTO clientinfo " + "VALUES ("+ k.FlightNumber +", '"+ k.Duration+"', '"+k.NumberOfSeats+"', '"+k.RemainingSeats+"', '"+k.Time+"', '"+k.Price+"', '"+k.Source+"', '"+k.Source+"')";
-		
+//		String sql = "INSERT INTO clientinfo " + "VALUES ("+ k.FlightNumber +", '"+ k.Duration+"', '"+k.NumberOfSeats+"', '"+k.RemainingSeats+"', '"+k.Time+"', '"+k.Price+"', '"+k.Source+"', '"+k.Destination+"', '"+k.Date+"')";                                 
+//		dbdrive.getStmt().execute(sql);
 	}
 
 
