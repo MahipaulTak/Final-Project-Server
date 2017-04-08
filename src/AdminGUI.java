@@ -223,6 +223,7 @@ public class AdminGUI {
 		btnCancel.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				list.remove(currently_viewed_index);
 				//switch back to the main window
 				CardLayout cards = (CardLayout)frame.getContentPane().getLayout();
 				cards.first(frame.getContentPane());
@@ -287,7 +288,7 @@ public class AdminGUI {
 		//Clear and then update the list
 		((DefaultListModel<String>) list.getModel()).clear();
 		for(int i = 0; i < ticketList.size(); i++){
-			((DefaultListModel<String>) list.getModel()).addElement(ticketList.get(i).getID().toString());
+			((DefaultListModel<String>) list.getModel()).addElement("test");
 		}
 	}
 	

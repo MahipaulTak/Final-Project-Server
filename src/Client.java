@@ -20,16 +20,18 @@ import java.util.ArrayList;
 public class Client {
 
 private final String ticketDirectory = "./";
-private PrintWriter socketOut;
+
 private Socket inSocket;
-private BufferedReader BRsocket;
+private ObjectOutputStream ouut;		
+private ObjectInputStream iin;
+
+
 
 public Client(String serverName, int portNumber) {
 	try {
 		inSocket = new Socket(serverName, portNumber);
-		BRsocket = new BufferedReader(new InputStreamReader(
-				inSocket.getInputStream()));
-		socketOut = new PrintWriter((inSocket.getOutputStream()), true);
+		ouut = new ObjectOutputStream(inSocket.getOutputStream());		
+		iin = new ObjectInputStream(inSocket.getInputStream());
 	} catch (IOException e) {
 		System.err.println(e.getStackTrace());
 		System.err.println("Bad connection to server or something?");
@@ -41,7 +43,7 @@ public Client(String serverName, int portNumber) {
 	 * @param flightNumber
 	 * @return Flight
 	 */
-	public Flight get_flight(Integer flightNumber){
+/*	public Flight get_flight(Integer flightNumber){
 		try {
 		socketOut.println("getFlight");
 		socketOut.println(flightNumber);
@@ -66,20 +68,18 @@ public Client(String serverName, int portNumber) {
 		return null;//if it can't return a normal flight/has problems
 
 	}
-	
+*/	
 	
 	public void add_flight(Integer duration, Integer numberOfSeats, Double price, Integer time, String source, String destination, String date){
 		Flight new_flight = new Flight(duration, numberOfSeats, price, time, source, destination, date);
-		//try {
-			socketOut.println("addFlight");
-			socketOut.println(duration+"-"+numberOfSeats+"-"+price+"-"+time+"-"+source+"-"+destination+"-"+date);
-			//ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
-			//stream.writeObject(new_flight);
-			//stream.close();
-		//} catch (IOException e) {
-			//System.err.println("IO problems in add_flight");
-			//e.printStackTrace();
-		//}
+		
+		try {
+			ouut.writeObject(new String("addFlight"));
+			ouut.writeObject(new_flight);
+			System.out.println("Added flight");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 	/**
@@ -87,20 +87,24 @@ public Client(String serverName, int portNumber) {
 	 */
 	public ArrayList<Flight> searchFlights(){
 		ArrayList<Flight> Flights = new ArrayList<Flight>();
-		int i = 0;
-		Flight temp = get_flight(i);
-		while(temp != null){
-			Flights.add(temp);
-			i++;
-			temp = get_flight(i);
+		
+		try{
+			Flight temp = (Flight)iin.readObject();
+			while(temp != null){
+				Flights.add(temp);
+				temp = (Flight)iin.readObject();
+			}
+		}catch(ClassNotFoundException e){
+			System.out.println("Couldn't get class Flight");
+		} catch (IOException e) {
+			System.out.println("Error reading from socket");
 		}
 		
 		return Flights;
-		
 	}
 	
 	public boolean bookFlight(Flight requestedFlight){
-		PasssengerInfo info = new PasssengerInfo("First", "Last", "BDay");
+/*		PasssengerInfo info = new PasssengerInfo("First", "Last", "BDay");
 		String rv = null;
 		try {
 			socketOut.println("bookFlight");
@@ -118,37 +122,38 @@ public Client(String serverName, int portNumber) {
 		
 		if(rv.equalsIgnoreCase("true"))
 			return true;
-		else
+		else*/
 			return false;
 	}
 	
-	public void cancelTicket(Ticket new_ticket){
+	public void cancelTicket(Ticket ticketToCancel){
 		try {
-			socketOut.println("cancel");
-			ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
-			stream.writeObject(new_ticket);
-			stream.close();
+			ouut.writeObject(new String("cancel"));
+			ouut.writeObject(ticketToCancel);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.err.println("IO problems in cancelTicket");
-			
 		}
 	}
 	
 	public ArrayList<Ticket> allTickets(){
-		ArrayList<Ticket> rv = null;
+		ArrayList<Ticket> rv = new ArrayList<Ticket>();
 		try {
-			socketOut.println("allTickets");
-			ObjectInputStream InputStream = new ObjectInputStream(inSocket.getInputStream());
-			rv = (ArrayList<Ticket>) InputStream.readObject();
+			ouut.writeObject(new String("allTickets"));
+			
+			Ticket temp = (Ticket)iin.readObject();
+			while(temp != null){
+				rv.add(temp);
+				temp = (Ticket)iin.readObject();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.err.println("IO problems in allTickets");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.err.println("Classnotfound in allTickets");
-
 		}
+		
 		return rv;
 	}
 	

@@ -67,8 +67,21 @@ public class FlightCatalogue {
 //		String sql = "INSERT INTO clientinfo " + "VALUES ("+ k.FlightNumber +", '"+ k.Duration+"', '"+k.NumberOfSeats+"', '"+k.RemainingSeats+"', '"+k.Time+"', '"+k.Price+"', '"+k.Source+"', '"+k.Destination+"', '"+k.Date+"')";                                 
 //		dbdrive.getStmt().execute(sql);
 	}
-
-
-
+	
+	public void removeTicket(Ticket t){
+		boolean flag = false;
+		
+		for(int i = 0; i < catalogue.size() && !flag; i++){
+			Flight temp = catalogue.get(i);
+			ArrayList<Ticket> tickets = temp.Tickets;
+			for(int j = 0; j < tickets.size(); j++){
+				if(tickets.get(j).getID().equals(t.getID())){
+					temp.Tickets.remove(j);
+					flag = true;
+					break;
+				}
+			}
+		}
+	}
 
 }

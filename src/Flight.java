@@ -17,12 +17,12 @@ public class Flight implements Serializable{
 	public Integer FlightNumber, Duration, NumberOfSeats, RemainingSeats, Time;//Time is just an int of 24 hour time
 	double Price;
 	public String Source, Destination, Date;
-	public ArrayList<Ticket> Tickets;//Check Luke's code on this
+	public ArrayList<Ticket> Tickets = new ArrayList<Ticket>();//Check Luke's code on this
 	public Integer tick;
 
 
 	public Flight(Integer duration, Integer numberOfSeats, Double price, Integer time, String source, String destination, String date){
-		RemainingSeats = 0;
+		RemainingSeats = numberOfSeats;
 		Duration = duration;
 		NumberOfSeats =  numberOfSeats;
 		Price = price;
@@ -83,12 +83,11 @@ public class Flight implements Serializable{
 	 * @param t
 	 * @return
 	 */
-	public String addTicket(Ticket t){
-		
-		
+	private String addTicket(Ticket t){
 		if(RemainingSeats == 0){
 			return "false";
 		}
+		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date current = new Date();
 		
@@ -107,38 +106,34 @@ public class Flight implements Serializable{
 		temp[1] = Date.toCharArray()[4];
 		Integer month = Integer.parseInt(new String(temp));
 		
-		if(Calendar.getInstance().YEAR < year){
-			if(Calendar.getInstance().MONTH < month){
-				if(Calendar.getInstance().DATE < day ){
+		if(Calendar.YEAR > year){
+			if(Calendar.MONTH > month){
+				if(Calendar.DATE > day ){
 					return "false";
 				}
 			}
 		}
+		
 		Tickets.add(t);
 		RemainingSeats--;
 		
 		return "true";
 	}
+
 	
-	/**
-	 * 
-	 * removes ticket from list of bookings
-	 * @param t
-	 * @return
-	 */
-	public String removeTicket(Ticket t){
-		boolean result = Tickets.remove(t);
-		
-		if(result){
-			RemainingSeats++;
-			return "true";
-			
-		}
-		else
-			return"false";
+	public boolean isFull(){
+		return (RemainingSeats == 0);
 	}
 	
-	
+	public Ticket createTicket(Integer ticketNumber){
+		Ticket rv = new Ticket(this, ticketNumber, null, this.Price);
+		this.addTicket(rv);
+		
+		return rv;
+	}
 
+	public void setFlightNumber(int newNumber){
+		FlightNumber = newNumber;
+	}
 }
 

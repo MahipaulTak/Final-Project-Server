@@ -7,9 +7,10 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
- * @author mahipaul.tak, luke.renaud, kevin.widdeman
+ * @author mahipaul.tak, luke.renaud, kevin.widmann
  * 
  * Class for implementing connections between client gui and flight database
  *
@@ -23,17 +24,7 @@ public class server {
 	 * Socket for interacting with client
 	 */
 	Socket Client;
-	/**
-	 * Reader for input from client
-	 */
-	BufferedReader clientIn;
-	/**
-	 * Output from server to client
-	 */
-	PrintWriter serverOut;
-	/**
-	 * message received from client
-	 */
+
 	String message;
 	/**
 	 * output stream for serialized objects
@@ -53,31 +44,35 @@ public class server {
 	 * @throws IOException
 	 * @throws SQLException 
 	 */
+	int ticketcount = 0;
+	int flightcount = 0;
+	
 	public server() throws IOException, SQLException{
 		serverSocket = new ServerSocket(9898,1);
 		System.out.println("Flight Server is now running.");
 		Client = serverSocket.accept();
-		clientIn = new BufferedReader(new InputStreamReader(Client.getInputStream()));
-		serverOut = new PrintWriter(Client.getOutputStream(), true);
-		//		iin = new ObjectInputStream(Client.getInputStream());
-		//		ouut = new ObjectOutputStream(Client.getOutputStream());
+		
+		ouut = new ObjectOutputStream(Client.getOutputStream());		
+		iin = new ObjectInputStream(Client.getInputStream());
+		
 		cat = new FlightCatalogue();
-		Flight nekw = new Flight(500,500,500.00,500,"calgary","edmonton","12/12/1212");
-		cat.addFlight(nekw);
-		cat.find(nekw).addTicket(new Ticket(nekw, 0, new PasssengerInfo("lol", "lol","1/1/0200"),30.00));
+		Flight test = new Flight(500,500,500.00,500,"calgary","edmonton","12/12/2112");
+		cat.addFlight(test);
+		test.createTicket(ticketcount++);
+		
 		System.out.println("Server now connected to the client");
 	}
 
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException{
 		server ser = new server();
-		//System.out.println("haha");
+		System.out.println("haha");
 		ser.run();
 	}
 
 
 	/**
-	 * Funciton for the operation of the server
+	 * Function for the operation of the server
 	 * 
 	 * @throws IOException
 	 * @throws ClassNotFoundException
@@ -85,23 +80,22 @@ public class server {
 	 */
 	public void run() throws IOException, ClassNotFoundException, SQLException{
 		while(true){
-			message = clientIn.readLine();
+			message = (String)iin.readObject();
 
 
-			// Command getFlight
-			// sends flight object with flight number gieven by client
+			// Command allFlights
+			// sends all flights to client
 
-			if(message.equalsIgnoreCase("getFlight")){
-
-				Integer ff = Integer.parseInt(clientIn.readLine());
-				if(cat.find(ff) != null){
-					serverOut.println(cat.find(ff).Duration+"-"+cat.find(ff).NumberOfSeats+"-"+cat.find(ff).Price+"-"+cat.find(ff).Time+"-"+cat.find(ff).Source+"-"+cat.find(ff).Destination+"-"+cat.find(ff).Date);}
+			if(message.equalsIgnoreCase("allFlights")){
+				ArrayList<Flight> flights = cat.getCatalogue();
 				
-				serverOut.println("done");
-
-
-
-				System.out.println("sent flight object");
+				for(int i = 0; i < flights.size(); i++){
+					ouut.writeObject(flights.get(i));
+					System.out.println("Sent a flight");
+				}
+				ouut.writeObject(null);
+				
+				System.out.println("Sent all flights finished");
 			}
 
 			// Command bookFlight
@@ -109,13 +103,17 @@ public class server {
 			// returns a string for if the flight was booked or not
 
 			else if(message.equalsIgnoreCase("bookFlight")){
-				String in = clientIn.readLine();
-				String[] nf = in.split("-");
-				Flight temp = cat.find(Integer.parseInt(nf[0]));
-				Ticket t = new Ticket(temp,temp.tick, new PasssengerInfo(nf[1],nf[2],nf[3]),Double.parseDouble(nf[4]));
-				String back = cat.find(t.getFl()).addTicket(t);
-				serverOut.println(back);
-				System.out.println("booked flight");
+				Integer flightID = (Integer) iin.readObject();
+				Flight toBeBooked = cat.find(flightID);
+				
+				if(toBeBooked.isFull()){
+					ouut.writeObject(new Boolean(false));
+					System.out.println("Plane is full, failed to book flight");
+				}else{
+					ouut.writeObject(new Boolean(true));
+					ouut.writeObject(toBeBooked.createTicket(ticketcount++));
+					System.out.println("Booked flight");
+				}
 
 			}
 
@@ -123,24 +121,28 @@ public class server {
 			// sends all Tickets booked for flight # sent afterwards sends a null
 
 			else if(message.equalsIgnoreCase("allTickets")){
-				Integer ff = Integer.parseInt(clientIn.readLine());
-				ouut = new ObjectOutputStream(Client.getOutputStream());
-				ouut.writeObject(cat.find(ff).Tickets);
+				ArrayList<Flight> flights = cat.getCatalogue();
+				
+				for(int i = 0; i < flights.size(); i++){
+					ArrayList<Ticket> tickets = flights.get(i).Tickets;
+					for(int j = 0; j < tickets.size(); j++){
+						ouut.writeObject(tickets.get(j));
+						System.out.println("Printed a ticket");
+					}
+				}
 				ouut.writeObject(null);
-				ouut.close();
-				System.out.println("sent the tickets");
-
+				
+				System.out.println("Printed all tickets");
 			}
 
 			// Command cancel
 			// Receives ticket form server and removes the booking from the
-			// connected flight, returns wether the ticket was actually removed 
+			// connected flight, returns whether the ticket was actually removed 
 
 			else if(message.equalsIgnoreCase("cancel")){
-				iin = new ObjectInputStream(Client.getInputStream());
 				Ticket t = (Ticket) iin.readObject();
-				iin.close();
-				String back = cat.find(t.getFl()).removeTicket(t);
+				
+				cat.removeTicket(t);
 				System.out.println("removed ticket");
 				//				serverOut.println(back);
 			}
@@ -150,14 +152,14 @@ public class server {
 			// returns flight number
 
 			else if(message.equalsIgnoreCase("addFlight")){
-				System.out.println("adding");
-				String in = clientIn.readLine();
-				String[] nf = in.split("-");
-				Flight f = new Flight(Integer.parseInt(nf[0]), Integer.parseInt(nf[1]), Double.parseDouble(nf[2]), Integer.parseInt(nf[3]), nf[4], nf[5], nf[6]);
+				System.out.println("Adding flight");
 
-				Integer back = cat.addFlight(f);
-				serverOut.println(back.toString());
-				System.out.println("added flight");
+				Flight in = (Flight) iin.readObject();
+				in.setFlightNumber(flightcount++);
+				
+				cat.addFlight(in);
+				
+				System.out.println("Added flight");
 			}
 
 		}
