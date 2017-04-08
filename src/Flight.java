@@ -135,5 +135,13 @@ public class Flight implements Serializable{
 	public void setFlightNumber(int newNumber){
 		FlightNumber = newNumber;
 	}
+	
+	public String toString(){
+		return ("Flight" + FlightNumber.toString() + "\n" +
+				Source + " -> " + Destination + "\n" +
+				"$" + Double.toString(Price) + "\n" +
+				Date + " at " + String.format("%02d", Time / 100) + ":" + String.format("%02d", Time % 100) + "\n" +
+				"Seats Remaining: " + RemainingSeats.toString());
+	}
 }
 

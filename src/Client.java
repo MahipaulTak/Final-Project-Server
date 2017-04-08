@@ -37,6 +37,7 @@ public Client(String serverName, int portNumber) {
 		System.err.println("Bad connection to server or something?");
 	}
 }
+
 	
 	public void add_flight(Integer duration, Integer numberOfSeats, Double price, Integer time, String source, String destination, String date){
 		Flight new_flight = new Flight(duration, numberOfSeats, price, time, source, destination, date);
@@ -56,6 +57,13 @@ public Client(String serverName, int portNumber) {
 	public ArrayList<Flight> searchFlights(){
 		ArrayList<Flight> Flights = new ArrayList<Flight>();
 		
+		try {
+			ouut.writeObject(new String("allFlights"));
+		} catch (IOException e1) {
+			System.out.println("unable to communicate to server in searchFlights");
+			e1.printStackTrace();
+		}
+		
 		try{
 			Flight temp = (Flight)iin.readObject();
 			while(temp != null){
@@ -72,28 +80,26 @@ public Client(String serverName, int portNumber) {
 	}
 	
 	public boolean bookFlight(Flight requestedFlight){
-		
+/*		PasssengerInfo info = new PasssengerInfo("First", "Last", "BDay");
+		String rv = null;
 		try {
-			ouut.writeObject(new String("bookFlight"));
-			ouut.writeObject(new Integer(requestedFlight.FlightNumber));
+			socketOut.println("bookFlight");
+			//ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
+			socketOut.println(requestedFlight.FlightNumber+"-"+info.getFName()+"-"+info.getLName()+"-"+info.getBDate()+"-"+requestedFlight.Price);
+			//TODO GUI TO GET INFO
+			//Ticket new_ticket = new Ticket(requestedFlight, requestedFlight.FlightNumber, info, requestedFlight.Price);
+			//stream.writeObject(new_ticket);
+			rv = BRsocket.readLine();
+			//stream.close();
 		} catch (IOException e) {
-			System.out.println("Error writing to socket in book flight");
+			System.err.println("IO problems in bookFlight");
+			e.printStackTrace();
 		}
-		try{
-			boolean rv = (boolean) iin.readObject();
-			if(!rv){
-				System.out.println("Plane full");
-				return false;
-			}
-			Ticket toPrint = (Ticket) iin.readObject();
-			printTicket(toPrint);
-			
-		} catch (IOException e){
-			System.out.println("Error reading from socket in book flight");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Class not found in book flight");
-		}
+		
+		if(rv.equalsIgnoreCase("true"))
 			return true;
+		else*/
+			return false;
 	}
 	
 	public void cancelTicket(Ticket ticketToCancel){

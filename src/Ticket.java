@@ -76,10 +76,6 @@ public class Ticket implements Serializable{
 	private Double price;
 	
 	
-	public String toString(){
-		return "Ticket#: "+ ID +" for Flight#: " + fl.FlightNumber + " booked by: "+ info.getFName() + " "+ info.getLName()+ " at the price of "+ price;
-	}
-	
 	/**
 	 * Constructor for Ticket
 	 * 
