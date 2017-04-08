@@ -288,7 +288,7 @@ public class AdminGUI {
 		//Clear and then update the list
 		((DefaultListModel<String>) list.getModel()).clear();
 		for(int i = 0; i < ticketList.size(); i++){
-			((DefaultListModel<String>) list.getModel()).addElement("test");
+			((DefaultListModel<String>) list.getModel()).addElement("Ticket " + ticketList.get(i).getID().toString());
 		}
 	}
 	
