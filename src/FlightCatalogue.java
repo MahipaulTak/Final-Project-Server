@@ -1,4 +1,8 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +19,9 @@ public class FlightCatalogue {
 	private ArrayList<Flight> catalogue;
 
 	private Integer fnumb;
+	private Connection conn;
+	private Statement stmt;
+	private ResultSet rs;
 
 	public ArrayList<Flight> getCatalogue() {
 		
@@ -25,9 +32,12 @@ public class FlightCatalogue {
 		return catalogue.size();
 	}
 
-	public FlightCatalogue() {
+	public FlightCatalogue() throws SQLException {
 		fnumb = 0;
 		this.catalogue = new ArrayList<Flight>();
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBASE","root","password");
+
+		stmt = conn.createStatement();
 	}
 	
 	public Flight find(Flight f){
@@ -63,9 +73,11 @@ public class FlightCatalogue {
 		k.FlightNumber = fnumb;
 		fnumb++;
 		catalogue.add(k);
+		
+		
+		String sql = "INSERT INTO flightinfo " + "VALUES ("+ k.FlightNumber +", '"+ k.Duration+"', '"+k.NumberOfSeats+"', '"+k.RemainingSeats+"', '"+k.Time+"', '"+k.Price+"', '"+k.Source+"', '"+k.Destination+"', '"+k.Date+"')";                                 
+		stmt.execute(sql);
 		return (fnumb -1);
-//		String sql = "INSERT INTO clientinfo " + "VALUES ("+ k.FlightNumber +", '"+ k.Duration+"', '"+k.NumberOfSeats+"', '"+k.RemainingSeats+"', '"+k.Time+"', '"+k.Price+"', '"+k.Source+"', '"+k.Destination+"', '"+k.Date+"')";                                 
-//		dbdrive.getStmt().execute(sql);
 	}
 	
 	public void removeTicket(Ticket t){
@@ -78,6 +90,7 @@ public class FlightCatalogue {
 				if(tickets.get(j).getID().equals(t.getID())){
 					temp.Tickets.remove(j);
 					flag = true;
+					
 					break;
 				}
 			}
