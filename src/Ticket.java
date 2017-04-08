@@ -4,7 +4,7 @@ import java.io.Serializable;
  * Aggregated by flight objects and keeps track of passenger info of passenger with flight 
  * and has a price associated
  * 
- * @author mahipaul.tak, luke.renaud, kevin.widdeman
+ * @author mahipaul.tak, luke.renaud, kevin.widmann
  * 
  * 
  *

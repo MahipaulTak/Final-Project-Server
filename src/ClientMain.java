@@ -1,5 +1,8 @@
 import javax.swing.JOptionPane;
-
+/**
+ * @author mahipaul.tak, luke.renaud, kevin.widmann
+ *
+ */
 public class ClientMain {
 	public static void main(String[] args){
 		int rv = JOptionPane.showConfirmDialog(null, "Run as admin?");

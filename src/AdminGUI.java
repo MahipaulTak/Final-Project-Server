@@ -24,7 +24,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+/**
+ * @author mahipaul.tak, luke.renaud, kevin.widmann
+ *
+ */
 public class AdminGUI {
 
 	//connection to the server that will be used as the backend for communications
