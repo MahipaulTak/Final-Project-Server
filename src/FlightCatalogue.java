@@ -35,9 +35,9 @@ public class FlightCatalogue {
 	public FlightCatalogue() throws SQLException {
 		fnumb = 0;
 		this.catalogue = new ArrayList<Flight>();
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBASE","root","password");
+		//conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBASE","root","password");
 
-		stmt = conn.createStatement();
+		//stmt = conn.createStatement();
 	}
 	
 	public Flight find(Flight f){
@@ -75,8 +75,8 @@ public class FlightCatalogue {
 		catalogue.add(k);
 		
 		
-		String sql = "INSERT INTO flightinfo " + "VALUES ("+ k.FlightNumber +", '"+ k.Duration+"', '"+k.NumberOfSeats+"', '"+k.RemainingSeats+"', '"+k.Time+"', '"+k.Price+"', '"+k.Source+"', '"+k.Destination+"', '"+k.Date+"')";                                 
-		stmt.execute(sql);
+		//String sql = "INSERT INTO flightinfo " + "VALUES ("+ k.FlightNumber +", '"+ k.Duration+"', '"+k.NumberOfSeats+"', '"+k.RemainingSeats+"', '"+k.Time+"', '"+k.Price+"', '"+k.Source+"', '"+k.Destination+"', '"+k.Date+"')";                                 
+		//stmt.execute(sql);
 		return (fnumb -1);
 	}
 	

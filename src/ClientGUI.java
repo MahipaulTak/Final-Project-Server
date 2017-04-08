@@ -231,23 +231,32 @@ public class ClientGUI {
 	
 	protected void runSearch(){
 		flightList = client_connection.searchFlights();
-		for(int i = 0; i < flightList.size();){
+		for(int i = 0; i < flightList.size(); i = i){
+			
+			System.out.println(flightList.size());
+			
 			//Delete all flights not matching the current search criteria
-			if(flightList.get(i).Source != sourceText.getText() && !sourceText.getText().equals("")){
+			if((!flightList.get(i).Source.equals(sourceText.getText())) && (!sourceText.getText().equals(""))){
+				System.out.println("here1");
 				flightList.remove(i);
 			}
-			else if(flightList.get(i).Destination != destinationText.getText() && !destinationText.getText().equals("")){
+			else if((flightList.get(i).Destination != destinationText.getText()) && (!destinationText.getText().equals(""))){
+				System.out.println("here2");
 				flightList.remove(i);
 			}
-			else if(flightList.get(i).Date != dateText.getText() && !dateText.getText().equals("")){
+			else if((flightList.get(i).Date != dateText.getText()) && (!dateText.getText().equals(""))){
+				System.out.println("here3");
 				flightList.remove(i);
 			}
-			else if(checkBox.isSelected() && (flightList.get(i).RemainingSeats == 0)){
+			else if((checkBox.isSelected()) && (flightList.get(i).RemainingSeats == 0)){
+				System.out.println("here4");
 				flightList.remove(i);
 			}
 			else{
+				System.out.println("here");
 				i++;
 			}
+			System.out.println("here pls");
 		}
 		
 		displayFlights();
@@ -257,6 +266,7 @@ public class ClientGUI {
 		//Clear and then update the list
 		((DefaultListModel<String>) list.getModel()).clear();
 		for(int i = 0; i < flightList.size(); i++){
+			
 			((DefaultListModel<String>) list.getModel()).addElement(flightList.get(i).FlightNumber.toString() + " : " + flightList.get(i).Source + " -> " + flightList.get(i).Destination);
 		}
 	}
