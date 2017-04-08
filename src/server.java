@@ -1,9 +1,6 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -15,11 +12,11 @@ import java.util.ArrayList;
  * Class for implementing connections between client gui and flight database
  *
  */
-public class server {
+public class server implements Runnable {
 	/**
 	 * Socket of server
 	 */
-	ServerSocket serverSocket;
+	static ServerSocket serverSocket;
 	/**
 	 * Socket for interacting with client
 	 */
@@ -47,11 +44,12 @@ public class server {
 	int ticketcount = 0;
 	int flightcount = 0;
 	
-	public server() throws IOException, SQLException{
-		serverSocket = new ServerSocket(9898,1);
+	public server(Socket client) throws IOException, SQLException{
+			//serverSocket = new ServerSocket(9898,1);
 		System.out.println("Flight Server is now running.");
-		Client = serverSocket.accept();
 		
+		//Client = serverSocket.accept();
+		Client = client;
 		ouut = new ObjectOutputStream(Client.getOutputStream());		
 		iin = new ObjectInputStream(Client.getInputStream());
 		
@@ -65,9 +63,16 @@ public class server {
 
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException{
-		server ser = new server();
-		System.out.println("haha");
-		ser.run();
+		serverSocket = new ServerSocket(9898,3);//trying with 3 clients max?
+			//server ser = new server();
+		System.out.println("Look at me go Ma!");
+			//ser.run();
+		
+		while(true){
+			Socket threadsocket = serverSocket.accept();
+			System.out.println("Connected");
+			new Thread(new server(threadsocket)).start();
+		}
 	}
 
 
@@ -78,7 +83,8 @@ public class server {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException 
 	 */
-	public void run() throws IOException, ClassNotFoundException, SQLException{
+	public void run(){
+		try{
 		while(true){
 			message = (String)iin.readObject();
 
@@ -163,6 +169,13 @@ public class server {
 			}
 
 		}
+	}catch(IOException e){
+		System.out.println("IO Exception in run");
+	} catch (ClassNotFoundException e) {
+		System.out.println("Class Not found in run");
+	} catch (SQLException e) {
+		System.out.println("SQL excpeiton in run");
+	}
 	}
 
 
