@@ -37,7 +37,6 @@ public Client(String serverName, int portNumber) {
 		System.err.println("Bad connection to server or something?");
 	}
 }
-
 	
 	public void add_flight(Integer duration, Integer numberOfSeats, Double price, Integer time, String source, String destination, String date){
 		Flight new_flight = new Flight(duration, numberOfSeats, price, time, source, destination, date);
@@ -73,26 +72,28 @@ public Client(String serverName, int portNumber) {
 	}
 	
 	public boolean bookFlight(Flight requestedFlight){
-/*		PasssengerInfo info = new PasssengerInfo("First", "Last", "BDay");
-		String rv = null;
-		try {
-			socketOut.println("bookFlight");
-			//ObjectOutputStream stream = new ObjectOutputStream(inSocket.getOutputStream());
-			socketOut.println(requestedFlight.FlightNumber+"-"+info.getFName()+"-"+info.getLName()+"-"+info.getBDate()+"-"+requestedFlight.Price);
-			//TODO GUI TO GET INFO
-			//Ticket new_ticket = new Ticket(requestedFlight, requestedFlight.FlightNumber, info, requestedFlight.Price);
-			//stream.writeObject(new_ticket);
-			rv = BRsocket.readLine();
-			//stream.close();
-		} catch (IOException e) {
-			System.err.println("IO problems in bookFlight");
-			e.printStackTrace();
-		}
 		
-		if(rv.equalsIgnoreCase("true"))
+		try {
+			ouut.writeObject(new String("bookFlight"));
+			ouut.writeObject(new Integer(requestedFlight.FlightNumber));
+		} catch (IOException e) {
+			System.out.println("Error writing to socket in book flight");
+		}
+		try{
+			boolean rv = (boolean) iin.readObject();
+			if(!rv){
+				System.out.println("Plane full");
+				return false;
+			}
+			Ticket toPrint = (Ticket) iin.readObject();
+			printTicket(toPrint);
+			
+		} catch (IOException e){
+			System.out.println("Error reading from socket in book flight");
+		} catch (ClassNotFoundException e) {
+			System.out.println("Class not found in book flight");
+		}
 			return true;
-		else*/
-			return false;
 	}
 	
 	public void cancelTicket(Ticket ticketToCancel){
