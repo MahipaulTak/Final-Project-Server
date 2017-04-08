@@ -242,7 +242,7 @@ public class ClientGUI {
 			else if(flightList.get(i).Date != dateText.getText() && !dateText.getText().equals("")){
 				flightList.remove(i);
 			}
-			else if(checkBox.isSelected() && (flightList.get(i).RemainingSeats != 0)){
+			else if(checkBox.isSelected() && (flightList.get(i).RemainingSeats == 0)){
 				flightList.remove(i);
 			}
 			else{
