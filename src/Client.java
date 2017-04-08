@@ -38,37 +38,7 @@ public Client(String serverName, int portNumber) {
 	}
 }
 
-	/**
-	 * 
-	 * @param flightNumber
-	 * @return Flight
-	 */
-/*	public Flight get_flight(Integer flightNumber){
-		try {
-		socketOut.println("getFlight");
-		socketOut.println(flightNumber);
-		//ObjectInputStream InputStream = new ObjectInputStream(inSocket.getInputStream());
-		//Flight temp = (Flight) InputStream.readObject();
-		
-		String in = BRsocket.readLine();
-		if(in.equals("done"))
-			return null;	
-		
-		String[] nf = in.split("-");
-		Flight f = new Flight(Integer.parseInt(nf[0]), Integer.parseInt(nf[1]), Double.parseDouble(nf[2]), Integer.parseInt(nf[3]), nf[4], nf[5], nf[6]);
-		//InputStream.close();
-		return f;
-		//} catch (ClassNotFoundException e) {
-		//	System.err.println("Class not found");
-		//	e.printStackTrace();
-		} catch (IOException e) {
-			System.err.println("IO problems in get_flight");
-			e.printStackTrace();
-		}
-		return null;//if it can't return a normal flight/has problems
-
-	}
-*/	
+	
 	
 	public void add_flight(Integer duration, Integer numberOfSeats, Double price, Integer time, String source, String destination, String date){
 		Flight new_flight = new Flight(duration, numberOfSeats, price, time, source, destination, date);
