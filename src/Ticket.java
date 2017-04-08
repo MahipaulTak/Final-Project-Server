@@ -94,9 +94,9 @@ public class Ticket implements Serializable{
 	
 	// doesnt work for soem reason
 	
-//	public String toString(){
-//		String result = new String("Ticket#: " + ID +" booked for flight#:"+ fl.FlightNumber+ " by "+ info.getFName()+ " "+ info.getLName() + ", who paid $" + price );
-//		return "hahahhahahahhahahaahaha";
-//	}
+	public String toString(){
+		String result = new String("Ticket#: " + ID +" booked for flight#:"+ fl.FlightNumber+  " for the price of $" + price );
+		return result;
+	}
 	
 }
