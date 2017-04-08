@@ -236,27 +236,21 @@ public class ClientGUI {
 			System.out.println(flightList.size());
 			
 			//Delete all flights not matching the current search criteria
-			if((!flightList.get(i).Source.equals(sourceText.getText())) && (!sourceText.getText().equals(""))){
-				System.out.println("here1");
+			if((!flightList.get(i).Source.equalsIgnoreCase(sourceText.getText())) && (!sourceText.getText().equals(""))){
 				flightList.remove(i);
 			}
-			else if((flightList.get(i).Destination != destinationText.getText()) && (!destinationText.getText().equals(""))){
-				System.out.println("here2");
+			else if((!flightList.get(i).Destination.equalsIgnoreCase(destinationText.getText())) && (!destinationText.getText().equals(""))){
 				flightList.remove(i);
 			}
-			else if((flightList.get(i).Date != dateText.getText()) && (!dateText.getText().equals(""))){
-				System.out.println("here3");
+			else if((!flightList.get(i).Date.equalsIgnoreCase(dateText.getText())) && (!dateText.getText().equals(""))){
 				flightList.remove(i);
 			}
 			else if((checkBox.isSelected()) && (flightList.get(i).RemainingSeats == 0)){
-				System.out.println("here4");
 				flightList.remove(i);
 			}
 			else{
-				System.out.println("here");
 				i++;
 			}
-			System.out.println("here pls");
 		}
 		
 		displayFlights();
