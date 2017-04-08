@@ -92,5 +92,11 @@ public class Ticket implements Serializable{
 		this.price = price;
 	}
 	
+	// doesnt work for soem reason
+	
+//	public String toString(){
+//		String result = new String("Ticket#: " + ID +" booked for flight#:"+ fl.FlightNumber+ " by "+ info.getFName()+ " "+ info.getLName() + ", who paid $" + price );
+//		return "hahahhahahahhahahaahaha";
+//	}
 	
 }
