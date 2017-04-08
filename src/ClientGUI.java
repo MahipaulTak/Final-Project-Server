@@ -26,7 +26,10 @@ import java.awt.CardLayout;
 import java.awt.GridLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
-
+/**
+ * @author mahipaul.tak, luke.renaud, kevin.widmann
+ *
+ */
 public class ClientGUI {
 
 	//connection to the server that will be used as the backend for communications
