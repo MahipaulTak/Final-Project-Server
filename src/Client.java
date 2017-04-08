@@ -37,11 +37,7 @@ public Client(String serverName, int portNumber) {
 		System.err.println("Bad connection to server or something?");
 	}
 }
-<<<<<<< HEAD
 
-	
-=======
->>>>>>> origin/master
 	
 	public void add_flight(Integer duration, Integer numberOfSeats, Double price, Integer time, String source, String destination, String date){
 		Flight new_flight = new Flight(duration, numberOfSeats, price, time, source, destination, date);
