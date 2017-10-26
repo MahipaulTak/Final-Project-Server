@@ -16,6 +16,7 @@ public class Ticket implements Serializable{
 
 
 	public Flight getFl() {
+		int k = 23;
 		return fl;
 	}
 
