@@ -14,6 +14,7 @@ import java.util.Calendar;
 
 //Probably need some libraries
 public class Flight implements Serializable{
+	public Integer doit;
 	public Integer FlightNumber, Duration, NumberOfSeats, RemainingSeats, Time;//Time is just an int of 24 hour time
 	double Price;
 	public String Source, Destination, Date;
