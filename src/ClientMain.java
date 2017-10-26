@@ -9,7 +9,7 @@ public class ClientMain {
 		
 		AdminGUI guiA;
 		ClientGUI guiP;
-		
+		int ss = 0;
 		if(rv == JOptionPane.OK_OPTION)
 			guiA = new AdminGUI("localhost", 9898, (PasssengerInfo)null);
 		else if(rv == JOptionPane.NO_OPTION)
